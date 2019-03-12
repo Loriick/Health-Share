@@ -13,7 +13,7 @@ const preventDefaults = e => {
 const handleDrop = e => {
   const file = e.dataTransfer.files[0];
   const { name } = file;
-  console.log(name);
+  uploadFile(file);
   drop.insertAdjacentHTML("beforeend", renderAfterDrop(name));
 };
 
@@ -21,3 +21,19 @@ const renderAfterDrop = name => `<p>your file name is ${name}</p>`;
 
 eventsArray.forEach(event => dropZone.addEventListener(event, preventDefaults));
 dropZone.addEventListener("drop", handleDrop);
+
+const uploadFile = file => {
+  let formData = new FormData();
+  formData.append("file", file);
+
+  fetch("https://fhirtest.uhn.ca/baseDstu3/Binary", {
+    method: "POST",
+    body: formData
+  })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
