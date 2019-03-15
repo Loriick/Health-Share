@@ -2,15 +2,17 @@
   "name": "lifen",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "parcel ./public/index.html",
+    "dev": "parcel ./public/index.html ",
+    "start": "electron ./src/app.js",
     "build": "parcel build ./public/index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "electron": "^4.1.0",
     "parcel-bundler": "^1.12.1",
     "sass": "^1.17.2"
   },
