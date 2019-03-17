@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 html,
 body,
 div,
@@ -131,10 +132,145 @@ table {
   border-spacing: 0;
 }
 
-.drop__area {
-  height: 50vh;
-  width: 30vw;
-  background: #aaa;
+* {
+  box-sizing: border-box;
+}
+
+.drop {
+  height: 100vh;
+  width: 100vw;
+  border-radius: 0;
+  background-color: #f4f4f4;
+  position: relative;
+}
+.drop__logo {
+  height: 100px;
+  width: 200px;
+  border-radius: 0;
+  background-color: unset;
+  object-fit: contain;
+  padding: 0;
+  position: absolute;
+  left: 5%;
+}
+.drop__element {
+  height: 100%;
+  width: 80%;
+  border-radius: 0;
+  background-color: unset;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+.drop__card {
+  height: 100%;
+  width: 40%;
+  border-radius: 3%;
+  background-color: white;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  padding: 3%;
+}
+.drop__text {
+  height: 50%;
+}
+.drop__text > span {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.6em;
+  font-weight: 300;
+}
+.drop__zone {
+  margin: 0 auto;
+  border: 3px dashed #aaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50%;
+  width: 100%;
+  border-radius: 1%;
+  background-color: #f4f4f4;
+}
+.drop__zone > form > label {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+.drop__zone:hover {
+  border: 3px solid #aaa;
+}
+.drop__danger {
+  background: red;
+  border: 3px dashed red;
+}
+.drop__danger::after {
+  content: "There a problem check your file type/size";
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+.drop__title {
+  margin: 0;
+  margin-bottom: 3%;
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+.drop__result > .drop__text {
+  margin-top: 15%;
+}
+.drop__result > .drop__text > p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+.drop__result > .drop__text > p > span {
+  font-style: italic;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+}
+.drop__result > .drop__text > p > span.file-upload {
+  font-style: normal;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+.drop__result > .drop__text > p:first-child {
+  margin-bottom: 10%;
+}
+.drop__history {
+  height: 30%;
+  width: 80%;
+  border-radius: 1%;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 5%;
+  padding: 3%;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  overflow-y: scroll;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+.drop__history > table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.drop__history > table td,
+.drop__history > table th {
+  border: 1px solid #ddd;
+  padding: 1%;
+}
+.drop__history > table th {
+  background-color: #f4f4f4;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.container {
+  padding-top: 8%;
+  height: 55%;
 }
 
 /*# sourceMappingURL=/src.7ed060e2.css.map */

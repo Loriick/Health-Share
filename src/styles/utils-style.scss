@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
+
+//VARIABLES
+$mainFont: "Open Sans", sans-serif;
+$mainBackground: #f4f4f4;
+//MIXINS
+@mixin font($size, $weight: 400) {
+  font: {
+    family: $mainFont;
+    size: $size;
+    weight: $weight;
+  }
+}
+
+@mixin base-style($height, $width, $bg-color: unset, $radius: 0) {
+  height: $height;
+  width: $width;
+  border-radius: $radius;
+  background-color: $bg-color;
+}

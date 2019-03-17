@@ -4,18 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>HealthShare</title>
   <link rel="stylesheet" href="/src.7ed060e2.css"></head>
   <body>
-    <section class="drop">
-      <div class="drop__area">
-        <form class="drop__form">
-          <p>Drag your file here</p>
-          <input type="file" id="file">
-          <label class="button" for="file">Select some files</label>
-        </form>
+    <main class="drop">
+        <img src="/logo.da61e3ea.png" alt="logo" class="drop__logo">
+        <div class="container">
+
+          <section class="drop__element">
+            <div class=" drop__area drop__card">
+              <div class="drop__text">
+                <h3 class="drop__title">Upload your file Below</h3>
+    <span>*only PDF format and less than 2MB</span>
+              </div>
+                  <div class="drop__zone">
+                    <form class="drop__form">
+                      <input type="file" id="file" hidden="">
+                      <img src="/upload.f21bb743.png" alt="upload logo">
+                      <label class="button" for="file">Drag and drop, or click to select</label>
+                    </form>
+                  </div>
+                </div>
+             
+          
+            <div class="drop__result drop__card ">
+              <h3 class="drop__title">Result</h3>
+              <div class="drop__text">
+    <p class="drop__result-name">File's name: <span>No files uploaded yet</span></p>
+    <p class="drop__result-binary">Total of binary: <span>No files uploaded yet</span></p>
+              </div>
+             
+            </div>
+          </section>
+        </div>
+
+      <div class="drop__history">
+        <h3 class="drop__title">Last files uploaded</h3>
+        <table>
+          <thead>
+<tr>
+  <th>File's name</th>
+  <th>Date</th>
+</tr>
+          </thead>
+        
+<tbody class="drop__table-list"></tbody>
+        </table>
       </div>
-    </section>
+    
     <script src="/src.7ed060e2.js"></script>
-  </body>
+  </main></body>
 </html>

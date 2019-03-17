@@ -1,102 +1,31 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
-const { app, BrowserWindow, Menu, ipcMain } = electron;
+const fs = require("fs");
+var fileWatcher = require("chokidar");
+var isMac = process.platform === "darwin";
+console.log(require("os").homedir());
+
+const { app, BrowserWindow, Menu, ipcMain, Notification } = electron;
 
 //windows
 let mainWindow;
+const pathFolder = "./src/upload";
+const root = "../../../../../FHIR";
 
 const config = {
-  title: "HeathShare"
+  height: 900,
+  width: 1400
 };
 
+const chokidarConfig = {
+  ignored: /[\/\\]\./,
+  persistent: true,
+  ignoreInitial: false
+};
 const createWindow = () => {
-  mainWindow = new BrowserWindow({ ...config });
+  mainWindow = new BrowserWindow(config);
   mainWindow.loadURL("http://localhost:1234");
-
-  const template = [
-    {
-      label: "Edit",
-      submenu: [
-        { role: "undo" },
-        { role: "redo" },
-        { type: "separator" },
-        { role: "cut" },
-        { role: "copy" },
-        { role: "paste" },
-        { role: "pasteandmatchstyle" },
-        { role: "delete" },
-        { role: "selectall" }
-      ]
-    },
-    {
-      label: "View",
-      submenu: [
-        { role: "reload" },
-        { role: "forcereload" },
-        { role: "toggledevtools" },
-        { type: "separator" },
-        { role: "resetzoom" },
-        { role: "zoomin" },
-        { role: "zoomout" },
-        { type: "separator" },
-        { role: "togglefullscreen" }
-      ]
-    },
-    {
-      role: "window",
-      submenu: [{ role: "minimize" }, { role: "close" }]
-    },
-    {
-      role: "help",
-      submenu: [
-        {
-          label: "Learn More",
-          click() {
-            require("electron").shell.openExternal("https://electronjs.org");
-          }
-        }
-      ]
-    }
-  ];
-
-  if (process.platform === "darwin") {
-    template.unshift({
-      label: app.getName(),
-      submenu: [
-        { role: "about" },
-        { type: "separator" },
-        { role: "services" },
-        { type: "separator" },
-        { role: "hide" },
-        { role: "hideothers" },
-        { role: "unhide" },
-        { type: "separator" },
-        { role: "quit" }
-      ]
-    });
-
-    // Edit menu
-    template[1].submenu.push(
-      { type: "separator" },
-      {
-        label: "Speech",
-        submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }]
-      }
-    );
-
-    // Window menu
-    template[3].submenu = [
-      { role: "close" },
-      { role: "minimize" },
-      { role: "zoom" },
-      { type: "separator" },
-      { role: "front" }
-    ];
-  }
-
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
 
   mainWindow.on("closed", function() {
     mainWindow = null;
@@ -106,3 +35,42 @@ const createWindow = () => {
 app.on("ready", createWindow);
 
 app.on("close", () => app.quit());
+
+// fs.watch(
+//   require("os").homedir() + "/FHIR",
+//   { encoding: "utf-8" },
+//   (eventType, filename) => {
+//     console.log(filename, eventType);
+//     // Prints: <Buffer ...>
+//   }
+// );
+
+function StartWatcher(path) {
+  var chokidar = require("chokidar");
+
+  var watcher = chokidar.watch(path, chokidarConfig);
+
+  function onWatcherReady() {
+    console.info(
+      "From here can you check for real changes, the initial scan has been completed."
+    );
+  }
+
+  // Declare the listeners of the watcher
+  watcher
+    .on("add", function(path, stats) {
+      console.log(arguments);
+    })
+    .on("change", function(path) {
+      console.log("File", path, "has been changed");
+    })
+    .on("error", function(error) {
+      console.log("Error happened", error);
+    })
+    .on("ready", onWatcherReady)
+    .on("raw", function(event, path, details) {
+      // This event should be triggered everytime something happens.
+      console.log("Raw event info:", event, path, details);
+    });
+}
+StartWatcher(require("os").homedir() + "/FHIR/*.pdf");
