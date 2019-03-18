@@ -1,19 +1,17 @@
 {
-  "name": "lifen",
+  "name": "healthshare",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
-    "dev": "parcel ./public/index.html ",
-    "start": "electron ./src/app.js",
-    "build": "parcel build ./public/index.html"
+    "start": "electron ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.3.4",
     "electron": "^4.1.0",
-    "parcel-bundler": "^1.12.1",
     "sass": "^1.17.2"
   },
   "dependencies": {
