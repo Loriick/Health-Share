@@ -1,16 +1,12 @@
 const electron = require("electron");
-const url = require("url");
-const path = require("path");
-const fs = require("fs");
-var isMac = process.platform === "darwin";
-var chokidar = require("chokidar");
+const chokidar = require("chokidar");
+const { app, BrowserWindow } = electron;
 
-const { app, BrowserWindow, ipcMain } = electron;
-
-//windows
 let mainWindow;
 let watcher;
-const config = {
+
+//windows configuration
+const windowConfig = {
   height: 900,
   width: 1400,
   show: false,
@@ -19,6 +15,7 @@ const config = {
   }
 };
 
+//watcher configuration
 const chokidarConfig = {
   ignored: /[\/\\]\./,
   persistent: true,
@@ -26,20 +23,24 @@ const chokidarConfig = {
 };
 
 function createWindow() {
-  mainWindow = new BrowserWindow(config);
+  mainWindow = new BrowserWindow(windowConfig);
   mainWindow.loadFile(__dirname + "/index.html");
 
+  //watch only .pdf type added on the "FHIR" directory
   mainWindow.on("ready-to-show", function() {
     watcher = chokidar.watch(
+      //get path from ~
       require("os").homedir() + "/FHIR/*.pdf",
       chokidarConfig
     );
     mainWindow.show();
     watcher
-      .on("add", (path, stats) => {
-        console.log(path);
+      .on("add", (pathFile, { size }) => {
         let date = new Date();
-        mainWindow.webContents.send("added", { path, date });
+        //send information to my renderer.js on if my file is less or egual than 2Mo
+        if (size <= 2000) {
+          mainWindow.webContents.send("added", { pathFile, date });
+        }
       })
       .on("error", function(error) {
         console.log("Error happened", error);
@@ -54,24 +55,3 @@ function createWindow() {
 app.on("ready", createWindow);
 
 app.on("close", () => app.quit());
-
-// fs.watch(
-//   require("os").homedir() + "/FHIR",
-//   { encoding: "utf-8" },
-//   (eventType, filename) => {
-//     console.log(filename, eventType);
-//     // Prints: <Buffer ...>
-//   }
-// );
-
-function StartWatcher(path) {
-  function onWatcherReady() {
-    console.info(
-      "From here can you check for real changes, the initial scan has been completed."
-    );
-  }
-
-  // Declare the listeners of the watcher
-
-  //.on("ready", onWatcherReady);
-}
