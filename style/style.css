@@ -141,7 +141,13 @@ table {
   width: 100vw;
   border-radius: 0;
   background-color: #f4f4f4;
-  position: relative;
+}
+.drop__header {
+  height: 10vh;
+  width: 100%;
+  border-radius: 0;
+  background-color: unset;
+  display: flex;
 }
 .drop__logo {
   height: 100px;
@@ -149,9 +155,17 @@ table {
   border-radius: 0;
   background-color: unset;
   object-fit: contain;
-  padding: 0;
-  position: absolute;
-  left: 5%;
+  margin-right: auto;
+  padding-left: 1%;
+}
+.drop__info {
+  padding: 1%;
+}
+.drop__info > li {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  margin-bottom: 2px;
 }
 .drop__element {
   height: 100%;
@@ -190,7 +204,7 @@ table {
   border-radius: 1%;
   background-color: #f4f4f4;
 }
-.drop__zone > form > label {
+.drop__zone > p {
   font-family: "Open Sans", sans-serif;
   font-size: 1em;
   font-weight: 400;
@@ -244,7 +258,7 @@ table {
   border-radius: 1%;
   background-color: white;
   margin: 0 auto;
-  margin-top: 5%;
+  margin-top: 3%;
   padding: 3%;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   overflow-y: scroll;
@@ -269,8 +283,8 @@ table {
 }
 
 .container {
-  padding-top: 8%;
-  height: 55%;
+  margin-top: 2%;
+  height: 50%;
 }
 
 /*# sourceMappingURL=style.css.map */

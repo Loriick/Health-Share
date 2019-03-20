@@ -9,22 +9,19 @@ const $dropZone = document.querySelector(".drop__zone");
 const $list = document.querySelector(".drop__table-list");
 const $name = document.querySelector(".drop__result-name  span");
 const $binary = document.querySelector(".drop__result-binary  span");
+const $input = document.querySelector("#file");
 
 //Variables
 let lastestFiles = [];
 const eventsArray = ["dragenter", "dragover", "dragleave", "drop"];
 const storage = new Storage("folder");
 
-const preventDefaults = e => {
-  e.stopPropagation();
-  e.preventDefault();
-};
-
 //GET DATA FROM MAIN ANYTIME A FOLDER
 ipcRenderer.on("added", (event, { pathFile, date }) => {
   const name = path.basename(pathFile);
   let createdAt = moment(date).format("DD/MM/YYYY");
 
+  //create a new file from the data
   const file = new File([pathFile], name, {
     path: pathFile,
     type: "application/pdf"
@@ -33,6 +30,11 @@ ipcRenderer.on("added", (event, { pathFile, date }) => {
   uploadFile(file);
   setLastFile({ name, date: createdAt });
 });
+
+/**
+ * @event
+ *
+ */
 
 const handleDrop = e => {
   const file = e.dataTransfer.files[0];
@@ -49,14 +51,24 @@ const handleDrop = e => {
   let lastFile = { name, date };
   setLastFile(lastFile);
 
-  //uploadFile(file);
+  uploadFile(file);
 };
 
-const uploadFile = async file => {
+/**
+ * @param {file} file
+ *
+ */
+
+const uploadFile = file => {
   let formData = new FormData();
   formData.append("file", file);
-  await api(formData, renderAfterDrop);
+  api(formData, renderAfterDrop);
 };
+
+/**
+ * @param {array} array
+ *
+ */
 
 const displayLastestFiles = array => {
   if (array.length > 0) {
@@ -76,14 +88,25 @@ const displayLastestFiles = array => {
   }
 };
 
+/**
+ * @param {Object} obj
+ *
+ */
 const setLastFile = obj => {
   lastestFiles.push(obj);
   if (lastestFiles.length > 5) {
     lastestFiles.shift();
   }
   storage.set(lastestFiles);
+
   displayLastestFiles(lastestFiles);
 };
+
+/**
+ * @param {String} data
+ * @param  {node} DOMElement
+ *
+ */
 
 const renderAfterDrop = (data, DOMElement = $binary) => {
   DOMElement.textContent = data;
@@ -99,7 +122,10 @@ const getDatafromStorage = () => {
 };
 
 eventsArray.forEach(event =>
-  $dropZone.addEventListener(event, preventDefaults)
+  $dropZone.addEventListener(event, e => {
+    e.stopPropagation();
+    e.preventDefault();
+  })
 );
 $dropZone.addEventListener("drop", handleDrop);
 window.addEventListener("load", getDatafromStorage);

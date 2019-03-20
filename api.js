@@ -1,3 +1,8 @@
+/**
+ * @param {file} formDatas
+ * @callback
+ */
+
 const api = async (formData, callback) => {
   try {
     const data = await fetch("https://fhirtest.uhn.ca/baseDstu3/Binary", {

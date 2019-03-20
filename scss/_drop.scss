@@ -1,14 +1,23 @@
 .drop {
   @include base-style(100vh, 100vw, $mainBackground);
-  position: relative;
+
+  &__header {
+    @include base-style(10vh, 100%);
+    display: flex;
+  }
   &__logo {
     @include base-style(100px, 200px);
     object-fit: contain;
-    padding: 0;
-    position: absolute;
-    left: 5%;
+    margin-right: auto;
+    padding-left: 1%;
   }
-
+  &__info {
+    padding: 1%;
+    > li {
+      @include font(1em, 300);
+      margin-bottom: 2px;
+    }
+  }
   &__element {
     @include base-style(100%, 80%);
     display: flex;
@@ -34,7 +43,7 @@
     align-items: center;
     flex-direction: column;
     @include base-style(50%, 100%, $mainBackground, 1%);
-    > form > label {
+    > p {
       @include font(1em);
     }
 
@@ -81,7 +90,7 @@
   &__history {
     @include base-style(30%, 80%, white, 1%);
     margin: 0 auto;
-    margin-top: 5%;
+    margin-top: 3%;
     padding: 3%;
     box-shadow: 0 3px 5px rgba(black, 0.3);
     overflow-y: scroll;
