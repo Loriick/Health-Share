@@ -33,31 +33,31 @@ ipcRenderer.on("added", (event, { pathFile, date }) => {
 });
 
 /**
- * @event
+ * @param {event} e
+ * @desc check the dropped file is less than 2MB or if it's a pdf type.
+ * send info to a function, and the file to another one.
  *
  */
 
 const handleDrop = e => {
   const file = e.dataTransfer.files[0];
-  const { name, type } = file;
-  if (type !== "application/pdf") {
+  const { name, type, size } = file;
+  if (type !== "application/pdf" || size <= 2000) {
     $dropZone.classList.add("drop__danger");
     return;
   }
   $dropZone.classList.remove("drop__danger");
   let date = moment(new Date()).format("DD/MM/YYYY");
-  console.log(date);
   renderAfterDrop(name, $name);
 
   let lastFile = { name, date };
   setLastFile(lastFile);
-
   uploadFile(file);
 };
 
 /**
  * @param {file} file
- *
+ * @desc send the file to the api
  */
 
 const uploadFile = file => {
@@ -67,15 +67,28 @@ const uploadFile = file => {
 };
 
 /**
+ * @param {Object} obj
+ * @desc push a object from handleDrop to an array send it to the localStorage and another function
+ */
+const setLastFile = obj => {
+  lastestFiles.push(obj);
+  if (lastestFiles.length > 5) {
+    lastestFiles.shift();
+  }
+  storage.set(lastestFiles);
+
+  displayLastestFiles(lastestFiles);
+};
+
+/**
  * @param {array} array
- *
+ * @desc loop in array and display the info in the screen. allow us to see the last 5 files.
  */
 
 const displayLastestFiles = array => {
   if (array.length > 0) {
     $list.innerHTML = "";
     return array.map(({ name, date }) => {
-      console.log(name);
       return $list.insertAdjacentHTML(
         "beforeend",
         `
@@ -90,23 +103,10 @@ const displayLastestFiles = array => {
 };
 
 /**
- * @param {Object} obj
- *
- */
-const setLastFile = obj => {
-  lastestFiles.push(obj);
-  if (lastestFiles.length > 5) {
-    lastestFiles.shift();
-  }
-  storage.set(lastestFiles);
-
-  displayLastestFiles(lastestFiles);
-};
-
-/**
  * @param {String} data
  * @param  {node} DOMElement
- *
+ * @default {binary}
+ *  @desc display filename or binary in the screen
  */
 
 const renderAfterDrop = (data, DOMElement = $binary) => {
@@ -114,6 +114,9 @@ const renderAfterDrop = (data, DOMElement = $binary) => {
   DOMElement.classList.add("file-upload");
 };
 
+/**
+ * @desc get information from the localstorage
+ */
 const getDatafromStorage = () => {
   let data = storage.get();
   if (data === null) {

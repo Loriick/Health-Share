@@ -1,8 +1,3 @@
-/**
- *
- *
- * @class Storage
- */
 class Storage {
   /**
    *Creates an instance of Storage.
@@ -16,7 +11,7 @@ class Storage {
    *
    *
    * @param {String} value
-   * @returns json
+   * @returns String
    * @memberof Storage
    */
   stringify(value) {
@@ -27,7 +22,7 @@ class Storage {
    *
    *
    * @param {String} value
-   * @returns
+   * @returns JSON
    * @memberof Storage
    */
   parseJSON(value) {
@@ -39,6 +34,7 @@ class Storage {
    *
    * @returns array
    * @memberof Storage
+   * @desc get items from the localStorage
    */
   get() {
     return this.parseJSON(window.localStorage.getItem(this.key));
@@ -49,6 +45,7 @@ class Storage {
    *
    * @param {array} value
    * @memberof Storage
+   * @desc set item to the localStorage
    */
   set(value) {
     const storage = this.get();

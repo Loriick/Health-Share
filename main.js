@@ -54,7 +54,7 @@ function createWindow() {
         }
       })
       .on("error", function(error) {
-        console.log("Error happened", error);
+        console.error("Error happened", error);
       });
   });
 
