@@ -168,13 +168,14 @@ table {
   margin-bottom: 2px;
 }
 .drop__element {
-  height: 100%;
+  height: 50%;
   width: 80%;
   border-radius: 0;
   background-color: unset;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0 auto;
+  margin-top: 2%;
 }
 .drop__card {
   height: 100%;
@@ -252,6 +253,16 @@ table {
 .drop__result > .drop__text > p:first-child {
   margin-bottom: 10%;
 }
+.drop__success {
+  transition: 0.4s;
+  color: green;
+  opacity: 0;
+  transform: translateY(0px);
+}
+.drop__success.success {
+  opacity: 1;
+  transform: translateY(50px);
+}
 .drop__history {
   height: 30%;
   width: 80%;
@@ -280,11 +291,6 @@ table {
   font-family: "Open Sans", sans-serif;
   font-size: 1.2em;
   font-weight: 600;
-}
-
-.container {
-  margin-top: 2%;
-  height: 50%;
 }
 
 /*# sourceMappingURL=style.css.map */

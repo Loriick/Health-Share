@@ -1,6 +1,8 @@
 const electron = require("electron");
 const chokidar = require("chokidar");
-const { app, BrowserWindow } = electron;
+const fs = require("fs");
+const { app, BrowserWindow, TouchBar } = electron;
+const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar;
 
 let mainWindow;
 let watcher;
@@ -21,6 +23,15 @@ const chokidarConfig = {
   persistent: true,
   ignoreInitial: true
 };
+
+const openDirBtn = new TouchBarLabel({
+  label: "Health Share 📂🥼"
+});
+
+const touchBar = new TouchBar([
+  openDirBtn,
+  new TouchBarSpacer({ size: "large" })
+]);
 
 function createWindow() {
   mainWindow = new BrowserWindow(windowConfig);
@@ -46,6 +57,8 @@ function createWindow() {
         console.log("Error happened", error);
       });
   });
+
+  mainWindow.setTouchBar(touchBar);
 
   mainWindow.on("closed", function() {
     mainWindow = null;

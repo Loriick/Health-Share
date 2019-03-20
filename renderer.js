@@ -10,6 +10,7 @@ const $list = document.querySelector(".drop__table-list");
 const $name = document.querySelector(".drop__result-name  span");
 const $binary = document.querySelector(".drop__result-binary  span");
 const $input = document.querySelector("#file");
+const $success = document.querySelector(".drop__success");
 
 //Variables
 let lastestFiles = [];
@@ -62,7 +63,7 @@ const handleDrop = e => {
 const uploadFile = file => {
   let formData = new FormData();
   formData.append("file", file);
-  api(formData, renderAfterDrop);
+  api(formData, renderAfterDrop, $success);
 };
 
 /**

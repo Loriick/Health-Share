@@ -19,10 +19,11 @@
     }
   }
   &__element {
-    @include base-style(100%, 80%);
+    @include base-style(50%, 80%);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 0 auto;
+    margin-top: 2%;
   }
   &__card {
     @include base-style(100%, 40%, white, 3%);
@@ -86,7 +87,16 @@
       }
     }
   }
-
+  &__success {
+    transition: 0.4s;
+    color: green;
+    opacity: 0;
+    transform: translateY(0px);
+    &.success {
+      opacity: 1;
+      transform: translateY(50px);
+    }
+  }
   &__history {
     @include base-style(30%, 80%, white, 1%);
     margin: 0 auto;
